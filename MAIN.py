@@ -51,6 +51,7 @@ b_h = (3 * 60) + 19  # Binky height
 i_w = 303 - 16 - 32  # Inky width
 c_w = 303 + (32 - 16)  # Clyde width
 
+
 def startGame():
     all_sprites_list = pygame.sprite.RenderPlain()
 
@@ -63,6 +64,9 @@ def startGame():
     wall_list = setupRoomOne(all_sprites_list)
 
     gate = setupGate(all_sprites_list)
+
+    flag = 0
+    fg = 0
 
     p_turn = 0
     p_steps = 0
@@ -135,13 +139,15 @@ def startGame():
                 done = True
 
             old_x = Pacman.rect.left
-            old_y = Pacman.prev_y
+            old_y = Pacman.rect.top
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     Pacman.rect.left -= 30
                     if not pygame.sprite.spritecollide(Pacman, wall_list, False):
                         Pacman.rect.left = old_x
                         Pacman.changespeed(-30, 0)
+                        Pacman.image = Pacman.i[1][flag]
+                        fg = 1
                     else:
                         Pacman.rect.left = old_x
                 if event.key == pygame.K_RIGHT:
@@ -149,6 +155,8 @@ def startGame():
                     if not pygame.sprite.spritecollide(Pacman, wall_list, False):
                         Pacman.rect.left = old_x
                         Pacman.changespeed(+30, 0)
+                        Pacman.image = Pacman.i[0][flag]
+                        fg = 0
                     else:
                         Pacman.rect.left = old_x
                 if event.key == pygame.K_UP:
@@ -156,6 +164,8 @@ def startGame():
                     if not pygame.sprite.spritecollide(Pacman, wall_list, False):
                         Pacman.rect.top = old_y
                         Pacman.changespeed(0, -30)
+                        Pacman.image = Pacman.i[2][flag]
+                        fg = 2
                     else:
                         Pacman.rect.top = old_y
                 if event.key == pygame.K_DOWN:
@@ -163,6 +173,8 @@ def startGame():
                     if not pygame.sprite.spritecollide(Pacman, wall_list, False):
                         Pacman.rect.top = old_y
                         Pacman.changespeed(0, 30)
+                        Pacman.image = Pacman.i[3][flag]
+                        fg = 3
                     else:
                         Pacman.rect.top = old_y
             '''
@@ -176,8 +188,8 @@ def startGame():
                 if event.key == pygame.K_DOWN:
                     Pacman.changespeed(0, -30)
             '''
-
-
+        Pacman.image = Pacman.i[fg][flag]
+        flag = (flag + 1) % 2
         # ALL EVENT PROCESSING SHOULD GO ABOVE THIS COMMENT
 
         # ALL GAME LOGIC SHOULD GO BELOW THIS COMMENT
