@@ -7,6 +7,7 @@ green = (0, 255, 0)
 red = (255, 0, 0)
 purple = (255, 0, 255)
 yellow = (255, 255, 0)
+ellow = (227, 142, 14)
 
 class Wall(pygame.sprite.Sprite):
     # Constructor function

@@ -41,7 +41,7 @@ background.fill(black)
 clock = pygame.time.Clock()
 
 pygame.font.init()
-font = pygame.font.Font("freesansbold.ttf", 24)
+font = pygame.font.Font("freesansbold.ttf", 20)
 
 # default locations for Pacman and monstas
 w = 303 - 16  # Width
@@ -200,17 +200,17 @@ def startGame():
         all_sprites_list.draw(screen)
         monsta_list.draw(screen)
 
-        text = font.render("Score: " + str(score) + "/" + str(bll), True, red)
-        screen.blit(text, [10, 10])
+        text = font.render("Score: " + str(score) + "/" + str(bll), True, yellow)
+        screen.blit(text, [10, 625])
 
         if score == bll:
-            doNext("Congratulations, you won!", 145, all_sprites_list, block_list, monsta_list, pacman_collide,
+            doNext("Поздравляем! Вы выграли", 145, all_sprites_list, block_list, monsta_list, pacman_collide,
                    wall_list, gate)
 
         monsta_hit_list = pygame.sprite.spritecollide(Pacman, monsta_list, False)
 
         if monsta_hit_list:
-            doNext("Game Over", 235, all_sprites_list, block_list, monsta_list, pacman_collide, wall_list, gate)
+            doNext("Игра окончена", 235, all_sprites_list, block_list, monsta_list, pacman_collide, wall_list, gate)
 
         # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
 
@@ -239,18 +239,18 @@ def doNext(message, left, all_sprites_list, block_list, monsta_list, pacman_coll
 
         # Grey background
         w = pygame.Surface((400, 200))  # the size of your rect
-        w.set_alpha(10)  # alpha level
-        w.fill((128, 128, 128))  # this fills the entire surface
+        #w.set_alpha(10)  # alpha level
+        w.fill((250, 245, 115))  # this fills the entire surface
         screen.blit(w, (100, 200))  # (0,0) are the top-left coordinates
 
         # Won or lost
-        text1 = font.render(message, True, white)
+        text1 = font.render(message, True, ellow)
         screen.blit(text1, [left, 233])
 
-        text2 = font.render("To play again, press ENTER.", True, white)
-        screen.blit(text2, [135, 303])
-        text3 = font.render("To quit, press ESCAPE.", True, white)
-        screen.blit(text3, [165, 333])
+        text2 = font.render("Нажмите Enter, чтобы начать игру", True, ellow)
+        screen.blit(text2, [130, 303])
+        text3 = font.render("Нажмите Escape, чтобы покинуть игру", True, ellow)
+        screen.blit(text3, [110, 333])
 
         pygame.display.flip()
 
