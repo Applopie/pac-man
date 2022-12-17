@@ -1,6 +1,6 @@
+import PLAYER
 
-
-class Ghost():
+class Ghost(PLAYER.Player):
     # Change the speed of the ghost
     def changespeed(self, list, ghost, turn, steps, l):
         try:

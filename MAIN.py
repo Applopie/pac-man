@@ -81,23 +81,23 @@ def startGame():
     c_steps = 0
 
     # Create the player paddle object
-    Pacman = Player(w, p_h, "drawings/pacman.png")
+    Pacman = Player(w, p_h, "drawings/pacmanmain.png")
     all_sprites_list.add(Pacman)
     pacman_collide.add(Pacman)
 
-    Blinky = Ghost(w, b_h, "drawings/Blinky.png")
+    Blinky = Ghost(w, b_h, "drawings/pacmancherry.png")
     monsta_list.add(Blinky)
     all_sprites_list.add(Blinky)
 
-    Pinky = Ghost(w, m_h, "drawings/Pinky.png")
+    Pinky = Ghost(w, m_h, "drawings/pacmanpink.png")
     monsta_list.add(Pinky)
     all_sprites_list.add(Pinky)
 
-    Inky = Ghost(i_w, m_h, "drawings/Inky.png")
+    Inky = Ghost(i_w, m_h, "drawings/pacmanblue.png")
     monsta_list.add(Inky)
     all_sprites_list.add(Inky)
 
-    Clyde = Ghost(c_w, m_h, "drawings/Clyde.png")
+    Clyde = Ghost(c_w, m_h, "drawings/pacmanorange.png")
     monsta_list.add(Clyde)
     all_sprites_list.add(Clyde)
 
