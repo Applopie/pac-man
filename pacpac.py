@@ -402,19 +402,19 @@ def startGame():
     all_sprites_list.add(Pacman)
     pacman_collide.add(Pacman)
 
-    Blinky = Ghost(w, b_h, "Blinky.png")
+    Blinky = Ghost(w/100, b_h/100, "Blinky.png")
     monsta_list.add(Blinky)
     all_sprites_list.add(Blinky)
 
-    Pinky = Ghost(w, m_h, "Pinky.png")
+    Pinky = Ghost(w/100, m_h/100, "Pinky.png")
     monsta_list.add(Pinky)
     all_sprites_list.add(Pinky)
 
-    Inky = Ghost(i_w, m_h, "Inky.png")
+    Inky = Ghost(i_w/100, m_h/100, "Inky.png")
     monsta_list.add(Inky)
     all_sprites_list.add(Inky)
 
-    Clyde = Ghost(c_w, m_h, "Clyde.png")
+    Clyde = Ghost(c_w/100, m_h/100, "Clyde.png")
     monsta_list.add(Clyde)
     all_sprites_list.add(Clyde)
 

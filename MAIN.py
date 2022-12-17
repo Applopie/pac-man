@@ -1,5 +1,3 @@
-import pygame
-
 black = (0, 0, 0)
 white = (255, 255, 255)
 blue = (0, 0, 255)
@@ -8,8 +6,6 @@ red = (255, 0, 0)
 purple = (255, 0, 255)
 yellow = (255, 255, 0)
 
-'''Trollicon = pygame.image.load('images/Trollman.png')
-pygame.display.set_icon(Trollicon)'''
 
 # Add music
 '''pygame.mixer.init()
@@ -24,7 +20,7 @@ from GHOSTS import *
 pygame.init()
 
 # Create an 606x606 sized screen
-screen = pygame.display.set_mode([606, 606])
+screen = pygame.display.set_mode([606, 666])
 
 # This is a list of 'sprites.' Each block in the program is
 # added to this list. The list is managed by a class called 'RenderPlain.'
@@ -224,6 +220,7 @@ def startGame():
 
 def doNext(message, left, all_sprites_list, block_list, monsta_list, pacman_collide, wall_list, gate):
     while True:
+
         # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
