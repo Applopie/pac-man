@@ -134,16 +134,38 @@ def startGame():
             if event.type == pygame.QUIT:
                 done = True
 
+            old_x = Pacman.rect.left
+            old_y = Pacman.prev_y
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    Pacman.changespeed(-30, 0)
+                    Pacman.rect.left -= 30
+                    if not pygame.sprite.spritecollide(Pacman, wall_list, False):
+                        Pacman.rect.left = old_x
+                        Pacman.changespeed(-30, 0)
+                    else:
+                        Pacman.rect.left = old_x
                 if event.key == pygame.K_RIGHT:
-                    Pacman.changespeed(30, 0)
+                    Pacman.rect.left += 30
+                    if not pygame.sprite.spritecollide(Pacman, wall_list, False):
+                        Pacman.rect.left = old_x
+                        Pacman.changespeed(+30, 0)
+                    else:
+                        Pacman.rect.left = old_x
                 if event.key == pygame.K_UP:
-                    Pacman.changespeed(0, -30)
+                    Pacman.rect.top -= 30
+                    if not pygame.sprite.spritecollide(Pacman, wall_list, False):
+                        Pacman.rect.top = old_y
+                        Pacman.changespeed(0, -30)
+                    else:
+                        Pacman.rect.top = old_y
                 if event.key == pygame.K_DOWN:
-                    Pacman.changespeed(0, 30)
-
+                    Pacman.rect.top += 30
+                    if not pygame.sprite.spritecollide(Pacman, wall_list, False):
+                        Pacman.rect.top = old_y
+                        Pacman.changespeed(0, 30)
+                    else:
+                        Pacman.rect.top = old_y
+            '''
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT:
                     Pacman.changespeed(30, 0)
@@ -153,6 +175,8 @@ def startGame():
                     Pacman.changespeed(0, 30)
                 if event.key == pygame.K_DOWN:
                     Pacman.changespeed(0, -30)
+            '''
+
 
         # ALL EVENT PROCESSING SHOULD GO ABOVE THIS COMMENT
 
@@ -212,7 +236,8 @@ def startGame():
         if monsta_hit_list:
             doNext("Игра окончена", 235, all_sprites_list, block_list, monsta_list, pacman_collide, wall_list, gate)
 
-        # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
+        # ALL CODE TO
+        # DRAW SHOULD GO ABOVE THIS COMMENT
 
         pygame.display.flip()
 
