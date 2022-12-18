@@ -1,4 +1,5 @@
 import PLAYER
+import pygame
 
 class Ghost(PLAYER.Player):
     # Change the speed of the ghost
@@ -22,6 +23,11 @@ class Ghost(PLAYER.Player):
             return [turn, steps]
         except IndexError:
             return [0, 0]
+
+    def update1(self):
+        if self.time is not None:
+            if pygame.time.get_ticks() - self.time < 5:
+                self.kill()
 
 
 Pinky_directions = [
@@ -134,3 +140,4 @@ pl = len(Pinky_directions) - 1
 bl = len(Blinky_directions) - 1
 il = len(Inky_directions) - 1
 cl = len(Clyde_directions) - 1
+

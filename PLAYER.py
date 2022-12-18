@@ -28,6 +28,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.left = x
         self.prev_x = x
         self.prev_y = y
+        self.time = None
 
 
     # Change the speed of the player

@@ -57,6 +57,8 @@ def startGame():
 
     block_list = pygame.sprite.RenderPlain()
 
+    cherry_list = pygame.sprite.RenderPlain()
+
     monsta_list = pygame.sprite.RenderPlain()
 
     pacman_collide = pygame.sprite.RenderPlain()
@@ -127,6 +129,7 @@ def startGame():
     bll = len(block_list)
 
     score = 0
+    level = 1
 
     done = False
 
@@ -226,6 +229,15 @@ def startGame():
         if len(blocks_hit_list) > 0:
             score += len(blocks_hit_list)
 
+        if score == 3:
+            cherry = Cherry(30 * 4 + 16, 30 * 10 + 16, 'drawings/cherry.png')
+            cherry_list.add(cherry)
+            all_sprites_list.add(cherry)
+
+        if pygame.sprite.spritecollide(Pacman, cherry_list, True):
+            Blinky.time = pygame.time.get_ticks()
+            Blinky.update1()
+
         # ALL GAME LOGIC SHOULD GO ABOVE THIS COMMENT
 
         # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
@@ -238,6 +250,9 @@ def startGame():
 
         text = font.render("Score: " + str(score) + "/" + str(bll), True, yellow)
         screen.blit(text, [10, 625])
+
+        textadd1 = font.render("Уровень " + str(level), True, yellow)
+        screen.blit(textadd1, [480, 625])
 
         if score == bll:
             doNext("Поздравляем! Вы выграли", 145, all_sprites_list, block_list, monsta_list, pacman_collide,
