@@ -72,6 +72,7 @@ def startGame():
 
     flag = 0
     fg = 0
+    bam = 0
 
     #Контроль за приведениями
     p_turn = 0
@@ -85,6 +86,9 @@ def startGame():
 
     c_turn = 0
     c_steps = 0
+
+    #отслеживание времени
+    current_time = pygame.time.get_ticks()
 
     # Создание приведений и Пакмана как объектов
     Pacman = Player(w, p_h, "drawings/pacmanmain.png")
@@ -234,9 +238,17 @@ def startGame():
             cherry_list.add(cherry)
             all_sprites_list.add(cherry)
 
-        if pygame.sprite.spritecollide(Pacman, cherry_list, True):
-            Blinky.time = pygame.time.get_ticks()
-            Blinky.update1()
+        deltime = current_time + 20
+        xb = Blinky.rect_x
+        yb = Blinky.rect_y
+        Blinky.kill()
+        bam = 1
+
+    if bam == 1:
+        if current_time == deltime:
+            Blinky = Ghost(xb, yb, "drawings/pacmancherry.png")
+            monsta_list.add(Blinky)
+            all_sprites_list.add(Blinky)
 
         ##################
         # ОТРИСОВКА ИГРЫ #

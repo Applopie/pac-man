@@ -30,9 +30,6 @@ class Ghost(PLAYER.Player):
         if pygame.time.get_ticks() - self.time >= 10000:"""
 
 
-
-
-
 Pinky_directions = [
     [0, -30, 4],
     [15, 0, 9],
