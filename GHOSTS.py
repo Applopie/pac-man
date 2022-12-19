@@ -1,5 +1,4 @@
 import PLAYER
-import pygame
 
 class Ghost(PLAYER.Player):
 

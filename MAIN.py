@@ -231,30 +231,6 @@ def startGame():
         Clyde.changespeed(Clyde_directions, "clyde", c_turn, c_steps, cl)
         Clyde.update(wall_list, False)
 
-        if bum == 2:
-            returned = Blinky1.changespeed(Blinky_directions, False, b_turn, b_steps, bl)
-            b_turn = returned[0]
-            b_steps = returned[1]
-            Blinky1.changespeed(Blinky_directions, False, b_turn, b_steps, bl)
-            Blinky1.update(wall_list, False)
-
-            returned = Clyde1.changespeed(Clyde_directions, "clyde", c_turn, c_steps, cl)
-            c_turn = returned[0]
-            c_steps = returned[1]
-            Clyde1.changespeed(Clyde_directions, "clyde", c_turn, c_steps, cl)
-            Clyde1.update(wall_list, False)
-
-            returned = Inky1.changespeed(Inky_directions, False, i_turn, i_steps, il)
-            i_turn = returned[0]
-            i_steps = returned[1]
-            Inky1.changespeed(Inky_directions, False, i_turn, i_steps, il)
-            Inky1.update(wall_list, False)
-
-            returned = Pinky1.changespeed(Pinky_directions, False, p_turn, p_steps, pl)
-            p_turn = returned[0]
-            p_steps = returned[1]
-            Pinky1.changespeed(Pinky_directions, False, p_turn, p_steps, pl)
-            Pinky1.update(wall_list, False)
 
         # Проверка на столкновение Пакмана с желтыми шариками
         blocks_hit_list = pygame.sprite.spritecollide(Pacman, block_list, True)
@@ -264,9 +240,10 @@ def startGame():
             score += len(blocks_hit_list)
 
         #появление буста "Вишенка"
-        if score == 3:
+        if (score == 30) or (score == 150):
             poss = ((30 * 4 + 16, 30 * 10 + 16),
-                    (30 * 6 + 16, 30 * 8 + 16))
+                    (30 * 6 + 16, 30 * 8 + 16),
+                    (30 * 12 + 16, 30 * 2 + 16))
             ell = random.choice(poss)
             cherry = Cherry(ell[0], ell[1], 'drawings/cherry.png')
             cherry_list.add(cherry)
@@ -274,9 +251,7 @@ def startGame():
 
         #проверка на съедание вишенки и действие буста
         if pygame.sprite.spritecollide(Pacman, cherry_list, True):
-            deltime = current_time + 200
-            xb = Blinky.rect_x
-            yb = Blinky.rect_y
+            deltime = current_time + 2000
             Blinky.kill()
             Pinky.kill()
             Inky.kill()
@@ -286,21 +261,17 @@ def startGame():
         #запуск привидений в лабиринт заново
         if bam == 1:
             if current_time >= deltime:
-                Blinky1 = Ghost(30*18 + 16, 30*18 + 16, "drawings/pacmancherry.png")
-                monsta_list.add(Blinky1)
-                all_sprites_list.add(Blinky1)
+                monsta_list.add(Blinky)
+                all_sprites_list.add(Blinky)
 
-                Pinky1 = Ghost(30 * 15 + 16, 30 * 10 + 16, "drawings/pacmanpink.png")
-                monsta_list.add(Pinky1)
-                all_sprites_list.add(Blinky1)
+                monsta_list.add(Pinky)
+                all_sprites_list.add(Pinky)
 
-                Clyde1 = Ghost(30 * 4 + 16, 30 * 3 + 16, "drawings/pacmanblue.png")
-                monsta_list.add(Clyde1)
-                all_sprites_list.add(Clyde1)
+                monsta_list.add(Clyde)
+                all_sprites_list.add(Clyde)
 
-                Inky1 = Ghost(30 * 15 + 16, 30 * 18 + 16, "drawings/pacmanorange.png")
-                monsta_list.add(Inky1)
-                all_sprites_list.add(Inky1)
+                monsta_list.add(Inky)
+                all_sprites_list.add(Inky)
 
                 bum, bam = 2, 2
 
@@ -322,7 +293,7 @@ def startGame():
         screen.blit(textadd1, [480, 625])
 
         if score == bll:
-            doNext("Поздравляем! Вы выграли", 145, all_sprites_list, block_list, monsta_list, pacman_collide,
+            doNext("Поздравляем! Вы выграли!!!", 150, all_sprites_list, block_list, monsta_list, pacman_collide,
                    wall_list, gate)
 
         monsta_hit_list = pygame.sprite.spritecollide(Pacman, monsta_list, False)
