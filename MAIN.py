@@ -24,11 +24,8 @@ from GHOSTS import *
 
 pygame.init()
 
-# Игравой экран
+# Игровой экран
 screen = pygame.display.set_mode([606, 666])
-
-# This is a list of 'sprites.' Each block in the program is
-# added to this list. The list is managed by a class called 'RenderPlain.'
 
 
 # Название экрана
@@ -76,6 +73,7 @@ def startGame():
     flag = 0
     fg = 0
     bam = 0
+    bum = 0
 
     #Контроль за приведениями
     p_turn = 0
@@ -231,6 +229,31 @@ def startGame():
         Clyde.changespeed(Clyde_directions, "clyde", c_turn, c_steps, cl)
         Clyde.update(wall_list, False)
 
+        if bum == 2:
+            returned = Blinky1.changespeed(Blinky_directions, False, b_turn, b_steps, bl)
+            b_turn = returned[0]
+            b_steps = returned[1]
+            Blinky1.changespeed(Blinky_directions, False, b_turn, b_steps, bl)
+            Blinky1.update(wall_list, False)
+
+            returned = Clyde1.changespeed(Clyde_directions, "clyde", c_turn, c_steps, cl)
+            c_turn = returned[0]
+            c_steps = returned[1]
+            Clyde1.changespeed(Clyde_directions, "clyde", c_turn, c_steps, cl)
+            Clyde1.update(wall_list, False)
+
+            returned = Inky1.changespeed(Inky_directions, False, i_turn, i_steps, il)
+            i_turn = returned[0]
+            i_steps = returned[1]
+            Inky1.changespeed(Inky_directions, False, i_turn, i_steps, il)
+            Inky1.update(wall_list, False)
+
+            returned = Pinky1.changespeed(Pinky_directions, False, p_turn, p_steps, pl)
+            p_turn = returned[0]
+            p_steps = returned[1]
+            Pinky1.changespeed(Pinky_directions, False, p_turn, p_steps, pl)
+            Pinky1.update(wall_list, False)
+
         # Проверка на столкновение Пакмана с желтыми шариками
         blocks_hit_list = pygame.sprite.spritecollide(Pacman, block_list, True)
 
@@ -247,18 +270,36 @@ def startGame():
             all_sprites_list.add(cherry)
 
         if pygame.sprite.spritecollide(Pacman, cherry_list, True):
-            deltime = current_time + 20
+            deltime = current_time + 200
             xb = Blinky.rect_x
             yb = Blinky.rect_y
             Blinky.kill()
+            Pinky.kill()
+            Inky.kill()
+            Clyde.kill()
             bam = 1
 
 
         if bam == 1:
-            if current_time == deltime:
-                Blinky = Ghost(xb, yb, "drawings/pacmancherry.png")
-                monsta_list.add(Blinky)
-                all_sprites_list.add(Blinky)
+            if current_time >= deltime:
+                Blinky1 = Ghost(30*18 + 16, 30*18 + 16, "drawings/pacmancherry.png")
+                monsta_list.add(Blinky1)
+                all_sprites_list.add(Blinky1)
+
+                Pinky1 = Ghost(30 * 15 + 16, 30 * 10 + 16, "drawings/pacmanpink.png")
+                monsta_list.add(Pinky1)
+                all_sprites_list.add(Blinky1)
+
+                Clyde1 = Ghost(30 * 4 + 16, 30 * 3 + 16, "drawings/pacmanblue.png")
+                monsta_list.add(Clyde1)
+                all_sprites_list.add(Clyde1)
+
+                Inky1 = Ghost(30 * 15 + 16, 30 * 18 + 16, "drawings/pacmanorange.png")
+                monsta_list.add(Inky1)
+                all_sprites_list.add(Inky1)
+
+                bum, bam = 2, 2
+
 
         ##################
         # ОТРИСОВКА ИГРЫ #
