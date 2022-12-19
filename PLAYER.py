@@ -52,13 +52,12 @@ class Player(pygame.sprite.Sprite):
         else:
 
             self.rect.top = new_y
-
-            # Did this update cause us to hit a wall?
+            # Врезался?
             y_collide = pygame.sprite.spritecollide(self, walls, False)
             if y_collide:
-                # Whoops, hit a wall. Go back to the old position
+                # Возвращайся на старую позицию
                 self.rect.top = old_y
-
+        #Проверка на столкновение с воротами
         if gate != False:
             gate_hit = pygame.sprite.spritecollide(self, gate, False)
             if gate_hit:

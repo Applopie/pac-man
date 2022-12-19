@@ -3,6 +3,9 @@
 #Запустите его для начала игры
 #
 
+import random
+
+
 black = (0, 0, 0)
 white = (255, 255, 255)
 blue = (0, 0, 255)
@@ -231,7 +234,10 @@ def startGame():
             score += len(blocks_hit_list)
 
         if score == 3:
-            cherry = Cherry(30 * 4 + 16, 30 * 10 + 16, 'drawings/cherry.png')
+            poss = ((30 * 4 + 16, 30 * 10 + 16),
+                    (30 * 6 + 16, 30 * 8 + 16))
+            ell = random.choice(poss)
+            cherry = Cherry(ell[0], ell[1], 'drawings/cherry.png')
             cherry_list.add(cherry)
             all_sprites_list.add(cherry)
 

@@ -10,27 +10,27 @@ yellow = (255, 255, 0)
 ellow = (227, 142, 14)
 
 class Wall(pygame.sprite.Sprite):
-    # Constructor function
+    # Конструктор
     def __init__(self, x, y, width, height, color):
-        # Call the parent's constructor
         pygame.sprite.Sprite.__init__(self)
 
-        # Make a blue wall, of the size specified in the parameters
+        # Создание синих стен
         self.image = pygame.Surface([width, height])
         self.image.fill(color)
 
-        # Make our top-left corner the passed-in location.
+        # Локализация
         self.rect = self.image.get_rect()
         self.rect.top = y
         self.rect.left = x
 
-
-# This creates all the walls in room 1
+#####################
+# Создает все стены #
+#####################
 def setupRoomOne(all_sprites_list):
-    # Make the walls. (x_pos, y_pos, width, height)
+    # Делает стены
     wall_list = pygame.sprite.RenderPlain()
 
-    # This is a list of walls. Each is in the form [x, y, width, height]
+    # Список стен [x, y, width, height]
     walls = [[0, 0, 6, 600],
              [0, 0, 600, 6],
              [0, 600, 606, 6],
@@ -71,13 +71,13 @@ def setupRoomOne(all_sprites_list):
              [360, 540, 126, 6]
              ]
 
-    # Loop through the list. Create the wall, add it to the list
+    # Проходим по списку. Создаем стену, добавляем ее в список
     for item in walls:
         wall = Wall(item[0], item[1], item[2], item[3], blue)
         wall_list.add(wall)
         all_sprites_list.add(wall)
 
-    # return our new list
+    # Возвращаем новый список
     return wall_list
 
 
@@ -88,46 +88,34 @@ def setupGate(all_sprites_list):
     return gate
 
 
-# This class represents the ball
-# It derives from the "Sprite" class in Pygame
+# Класс создает желтые шарики, за которые дают очки
+# Он является производным от класса "Sprite" в Pygame
 class Block(pygame.sprite.Sprite):
 
-    # Constructor. Pass in the color of the block,
-    # and its x and y position
+    # Конструктор
     def __init__(self, color, width, height):
-        # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
 
-        # Create an image of the block, and fill it with a color.
-        # This could also be an image loaded from the disk.
+        # Создание шариков
         self.image = pygame.Surface([width, height])
         self.image.fill(white)
         self.image.set_colorkey(white)
         pygame.draw.ellipse(self.image, color, [0, 0, width, height])
 
-        # Fetch the rectangle object that has the dimensions of the image
-        # image.
-        # Update the position of this object by setting the values
-        # of rect.x and rect.y
+        # Локализация шариков
         self.rect = self.image.get_rect()
 
-# This class represents the ball
-# It derives from the "Sprite" class in Pygame
+#Вишенки!!!
 class Cherry(pygame.sprite.Sprite):
 
-    # Constructor. Pass in the color of the block,
-    # and its x and y position
+    # Конструктор
     def __init__(self, x, y, filename):
-        # Call the parent class (Sprite) constructor
         pygame.sprite.Sprite.__init__(self)
 
-        # Create an image of the block
         self.image = pygame.image.load("drawings/cherry.png").convert()
 
-        # Fetch the rectangle object that has the dimensions of the image
-        # image.
-        # Update the position of this object by setting the values
-        # of rect.x and rect.y
+        # Локализация вишни
         self.rect = self.image.get_rect()
         self.rect.top = y
         self.rect.left = x
+
