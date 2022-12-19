@@ -2,6 +2,7 @@ import PLAYER
 import pygame
 
 class Ghost(PLAYER.Player):
+
     # Change the speed of the ghost
     def changespeed(self, list, ghost, turn, steps, l):
         try:
@@ -24,10 +25,12 @@ class Ghost(PLAYER.Player):
         except IndexError:
             return [0, 0]
 
-    def update1(self):
-        if self.time is not None:
-            if pygame.time.get_ticks() - self.time < 5:
-                self.kill()
+    """def updateg(self):
+        self.kill()
+        if pygame.time.get_ticks() - self.time >= 10000:"""
+
+
+
 
 
 Pinky_directions = [

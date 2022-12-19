@@ -47,7 +47,7 @@ font = pygame.font.Font("freesansbold.ttf", 20)
 w = 303 - 16  # Width
 p_h = (7 * 60) + 19  # Pacman height
 m_h = (4 * 60) + 19  # Monster height
-b_h = (3 * 60) + 19  # Binky height
+b_h = (3 * 60) + 19  # Blinky height
 i_w = 303 - 16 - 32  # Inky width
 c_w = 303 + (32 - 16)  # Clyde width
 
@@ -81,6 +81,9 @@ def startGame():
 
     c_turn = 0
     c_steps = 0
+
+    bam = 0
+    current_time = pygame.time.get_ticks()
 
     # Create the player paddle object
     Pacman = Player(w, p_h, "drawings/pacmanmain.png")
@@ -235,10 +238,21 @@ def startGame():
             all_sprites_list.add(cherry)
 
         if pygame.sprite.spritecollide(Pacman, cherry_list, True):
-            Blinky.time = pygame.time.get_ticks()
-            Blinky.update1()
+            deltime = current_time + 20
+            xb = Blinky.rect_x
+            yb = Blinky.rect_y
+            Blinky.kill()
+            bam = 1
 
-        # ALL GAME LOGIC SHOULD GO ABOVE THIS COMMENT
+        if bam == 1:
+            if current_time == deltime:
+                Blinky = Ghost(xb, yb, "drawings/pacmancherry.png")
+                monsta_list.add(Blinky)
+                all_sprites_list.add(Blinky)
+
+
+
+        #ALL GAME LOGIC SHOULD GO ABOVE THIS COMMENT
 
         # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
         screen.fill(black)

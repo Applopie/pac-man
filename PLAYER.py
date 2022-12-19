@@ -24,6 +24,8 @@ class Player(pygame.sprite.Sprite):
 
         # Make our top-left corner the passed-in location.
         self.rect = self.image.get_rect()
+        self.rect_x = x
+        self.rect_y = y
         self.rect.top = y
         self.rect.left = x
         self.prev_x = x
