@@ -3,7 +3,7 @@ import pygame
 
 class Ghost(PLAYER.Player):
 
-    # Change the speed of the ghost
+    # Изменение скорости приведений
     def changespeed(self, list, ghost, turn, steps, l):
         try:
             z = list[turn][2]
@@ -25,11 +25,8 @@ class Ghost(PLAYER.Player):
         except IndexError:
             return [0, 0]
 
-    """def updateg(self):
-        self.kill()
-        if pygame.time.get_ticks() - self.time >= 10000:"""
 
-
+# Указание направления движения для призраков
 Pinky_directions = [
     [0, -30, 4],
     [15, 0, 9],
@@ -136,6 +133,7 @@ Clyde_directions = [
     [15, 0, 9],
 ]
 
+# Длина траектории
 pl = len(Pinky_directions) - 1
 bl = len(Blinky_directions) - 1
 il = len(Inky_directions) - 1

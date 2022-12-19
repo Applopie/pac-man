@@ -24,7 +24,7 @@ from GHOSTS import *
 
 pygame.init()
 
-# Игравой экран
+# Игровой экран
 screen = pygame.display.set_mode([606, 666])
 
 # This is a list of 'sprites.' Each block in the program is
@@ -90,8 +90,7 @@ def startGame():
     c_turn = 0
     c_steps = 0
 
-    #отслеживание времени
-    current_time = pygame.time.get_ticks()
+
 
     # Создание приведений и Пакмана как объектов
     Pacman = Player(w, p_h, "drawings/pacmanmain.png")
@@ -150,6 +149,9 @@ def startGame():
     # (Исполняется, пока игрок не закончил игру) #
     ##############################################
     while done == False:
+
+        # отслеживание времени
+        current_time = pygame.time.get_ticks()
 
         ############################
         # Обработка нажатий клавиш #
@@ -236,25 +238,26 @@ def startGame():
         if len(blocks_hit_list) > 0:
             score += len(blocks_hit_list)
 
-        if score == 3:
+        if (score == 3) or (score == 150):
             poss = ((30 * 4 + 16, 30 * 10 + 16),
-                    (30 * 6 + 16, 30 * 8 + 16))
+                    (30 * 12 + 16, 30 * 8 + 16))
             ell = random.choice(poss)
             cherry = Cherry(ell[0], ell[1], 'drawings/cherry.png')
             cherry_list.add(cherry)
             all_sprites_list.add(cherry)
 
-        deltime = current_time + 20
-        xb = Blinky.rect_x
-        yb = Blinky.rect_y
-        Blinky.kill()
-        bam = 1
+        if pygame.sprite.spritecollide(Pacman, cherry_list, True):
+            deltime = current_time + 20
+            xb = Blinky.rect_x
+            yb = Blinky.rect_y
+            Blinky.kill()
+            bam = 1
 
-    if bam == 1:
-        if current_time == deltime:
-            Blinky = Ghost(xb, yb, "drawings/pacmancherry.png")
-            monsta_list.add(Blinky)
-            all_sprites_list.add(Blinky)
+        if bam == 1:
+            if current_time == deltime:
+                Blinky = Ghost(xb, yb, "drawings/pacmancherry.png")
+                monsta_list.add(Blinky)
+                all_sprites_list.add(Blinky)
 
         ##################
         # ОТРИСОВКА ИГРЫ #
