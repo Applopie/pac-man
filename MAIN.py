@@ -263,6 +263,7 @@ def startGame():
         if len(blocks_hit_list) > 0:
             score += len(blocks_hit_list)
 
+        #появление буста "Вишенка"
         if score == 3:
             poss = ((30 * 4 + 16, 30 * 10 + 16),
                     (30 * 6 + 16, 30 * 8 + 16))
@@ -271,6 +272,7 @@ def startGame():
             cherry_list.add(cherry)
             all_sprites_list.add(cherry)
 
+        #проверка на съедание вишенки и действие буста
         if pygame.sprite.spritecollide(Pacman, cherry_list, True):
             deltime = current_time + 200
             xb = Blinky.rect_x
@@ -281,7 +283,7 @@ def startGame():
             Clyde.kill()
             bam = 1
 
-
+        #запуск привидений в лабиринт заново
         if bam == 1:
             if current_time >= deltime:
                 Blinky1 = Ghost(30*18 + 16, 30*18 + 16, "drawings/pacmancherry.png")
