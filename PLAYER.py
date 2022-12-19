@@ -1,16 +1,15 @@
 import pygame
 
 class Player(pygame.sprite.Sprite):
-    # Set speed vector
+    # Вектор скорости
     change_x = 0
     change_y = 0
 
-    # Constructor function
+    # Конструктор
     def __init__(self, x, y, filename):
-        # Call the parent's constructor
         pygame.sprite.Sprite.__init__(self)
 
-        # Set height, width
+        # Изображения для анимации пакмана
         self.i = ((pygame.image.load("drawings/pacmanmainr.png").convert(), pygame.image.load("drawings/pacmanmainrc.png").convert()),
              (pygame.image.load("drawings/pacmanmainl.png").convert(), pygame.image.load("drawings/pacmanmainlc.png").convert()),
              (pygame.image.load("drawings/pacmanmainu.png").convert(), pygame.image.load("drawings/pacmanmainuc.png").convert()),
@@ -18,7 +17,7 @@ class Player(pygame.sprite.Sprite):
 
         self.image = pygame.image.load(filename).convert()
 
-        # Make our top-left corner the passed-in location.
+        # Локализация Пакмана
         self.rect = self.image.get_rect()
         self.rect_x = x
         self.rect_y = y
@@ -29,14 +28,14 @@ class Player(pygame.sprite.Sprite):
         self.time = None
 
 
-    # Change the speed of the player
+    # Изменение скорости Пакмана
     def changespeed(self, vx, vy):
         self.change_x = vx
         self.change_y = vy
 
-    # Find a new position for the player
+    # Нахождение новой позиции игрока
     def update(self, walls, gate):
-        # Get the old position, in case we need to go back to it
+        # Сохранение старой позиции на случай, если нам потребуется вернуться обратно
 
         old_x = self.rect.left
         new_x = old_x + self.change_x
@@ -45,10 +44,10 @@ class Player(pygame.sprite.Sprite):
         old_y = self.rect.top
         new_y = old_y + self.change_y
 
-        # Did this update cause us to hit a wall?
+        # Перемещение приводит к проламыванию стены?
         x_collide = pygame.sprite.spritecollide(self, walls, False)
         if x_collide:
-            # Whoops, hit a wall. Go back to the old position
+            # Возвращайся на старую позицию
             self.rect.left = old_x
         else:
 
