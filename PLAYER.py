@@ -15,10 +15,6 @@ class Player(pygame.sprite.Sprite):
              (pygame.image.load("drawings/pacmanmainl.png").convert(), pygame.image.load("drawings/pacmanmainlc.png").convert()),
              (pygame.image.load("drawings/pacmanmainu.png").convert(), pygame.image.load("drawings/pacmanmainuc.png").convert()),
              (pygame.image.load("drawings/pacmanmaind.png").convert(), pygame.image.load("drawings/pacmanmaindc.png").convert()))
-        #self.i_r = (pygame.image.load("drawings/pacmanmainr.png").convert(), pygame.image.load("drawings/pacmanmainrc.png").convert())
-        #self.i_l = (pygame.image.load("drawings/pacmanmainl.png").convert(), pygame.image.load("drawings/pacmanmainlc.png").convert())
-        #self.i_u = (pygame.image.load("drawings/pacmanmainu.png").convert(), pygame.image.load("drawings/pacmanmainuc.png").convert())
-        #self.i_d = (pygame.image.load("drawings/pacmanmaind.png").convert(), pygame.image.load("drawings/pacmanmaindc.png").convert())
 
         self.image = pygame.image.load(filename).convert()
 
@@ -69,4 +65,3 @@ class Player(pygame.sprite.Sprite):
                 self.rect.top = old_y
 
 
-# Inheritime Player klassist

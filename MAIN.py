@@ -1,3 +1,8 @@
+#Главный исполняемый файл игры
+#Здесь находятся функции, отвечающие за отрисовку кадров, вход и выход из игры
+#Запустите его для начала игры
+#
+
 black = (0, 0, 0)
 white = (255, 255, 255)
 blue = (0, 0, 255)
@@ -5,37 +10,31 @@ green = (0, 255, 0)
 red = (255, 0, 0)
 purple = (255, 0, 255)
 yellow = (255, 255, 0)
+ellow = (227, 142, 14)
 
 
-# Add music
-'''pygame.mixer.init()
-pygame.mixer.music.load('pacman.mp3')
-pygame.mixer.music.play(-1, 0.0)'''
 
+#Вызов других файлов игры
 from WORLD import *
 from PLAYER import *
 from GHOSTS import *
-# This class represents the bar at the bottom that the player controls
-# Call this function so the Pygame library can initialize itself
+
 pygame.init()
 
-# Create an 606x606 sized screen
+# Игравой экран
 screen = pygame.display.set_mode([606, 666])
 
 # This is a list of 'sprites.' Each block in the program is
 # added to this list. The list is managed by a class called 'RenderPlain.'
 
 
-# Set the title of the window
+# Название экрана
 pygame.display.set_caption('Pacman')
 
-# Create a surface we can draw on
+# Создание поверхности для рисования
 background = pygame.Surface(screen.get_size())
 
-# Used for converting color maps and such
-background = background.convert()
-
-# Fill the screen with a black background
+# Черный фон
 background.fill(black)
 
 clock = pygame.time.Clock()
@@ -43,7 +42,7 @@ clock = pygame.time.Clock()
 pygame.font.init()
 font = pygame.font.Font("freesansbold.ttf", 20)
 
-# default locations for Pacman and monstas
+# Начальные положения для Пакмана и привидений
 w = 303 - 16  # Width
 p_h = (7 * 60) + 19  # Pacman height
 m_h = (4 * 60) + 19  # Monster height
@@ -52,6 +51,10 @@ i_w = 303 - 16 - 32  # Inky width
 c_w = 303 + (32 - 16)  # Clyde width
 
 
+
+##############
+# СТАРТ ИГРЫ #
+##############
 def startGame():
     all_sprites_list = pygame.sprite.RenderPlain()
 
@@ -70,6 +73,7 @@ def startGame():
     flag = 0
     fg = 0
 
+    #Контроль за приведениями
     p_turn = 0
     p_steps = 0
 
@@ -82,7 +86,7 @@ def startGame():
     c_turn = 0
     c_steps = 0
 
-    # Create the player paddle object
+    # Создание приведений и Пакмана как объектов
     Pacman = Player(w, p_h, "drawings/pacmanmain.png")
     all_sprites_list.add(Pacman)
     pacman_collide.add(Pacman)
@@ -103,7 +107,7 @@ def startGame():
     monsta_list.add(Clyde)
     all_sprites_list.add(Clyde)
 
-    # Draw the grid
+    # Отрисовка желтых шариков
     for row in range(19):
         for column in range(19):
             if (row == 7 or row == 8) and (column == 8 or column == 9 or column == 10):
@@ -111,7 +115,7 @@ def startGame():
             else:
                 block = Block(yellow, 4, 4)
 
-                # Set a random location for the block
+                # Установка местоположения шариков
                 block.rect.x = (30 * column + 6) + 26
                 block.rect.y = (30 * row + 6) + 26
 
@@ -122,7 +126,7 @@ def startGame():
                 elif p_collide:
                     continue
                 else:
-                    # Add the block to the list of objects
+                    # Добавление шариков в список объектов
                     block_list.add(block)
                     all_sprites_list.add(block)
 
@@ -133,10 +137,16 @@ def startGame():
 
     done = False
 
-    i = 0
 
+    ##############################################
+    ##### Игровой процесс, отрисовка кадров ######
+    # (Исполняется, пока игрок не закончил игру) #
+    ##############################################
     while done == False:
-        # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
+
+        ############################
+        # Обработка нажатий клавиш #
+        ############################
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
@@ -180,22 +190,12 @@ def startGame():
                         fg = 3
                     else:
                         Pacman.rect.top = old_y
-            '''
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT:
-                    Pacman.changespeed(30, 0)
-                if event.key == pygame.K_RIGHT:
-                    Pacman.changespeed(-30, 0)
-                if event.key == pygame.K_UP:
-                    Pacman.changespeed(0, 30)
-                if event.key == pygame.K_DOWN:
-                    Pacman.changespeed(0, -30)
-            '''
         Pacman.image = Pacman.i[fg][flag]
         flag = (flag + 1) % 2
-        # ALL EVENT PROCESSING SHOULD GO ABOVE THIS COMMENT
 
-        # ALL GAME LOGIC SHOULD GO BELOW THIS COMMENT
+        ###############
+        # ЛОГИКА ИГРЫ #
+        ###############
         Pacman.update(wall_list, gate)
 
         returned = Pinky.changespeed(Pinky_directions, False, p_turn, p_steps, pl)
@@ -222,10 +222,10 @@ def startGame():
         Clyde.changespeed(Clyde_directions, "clyde", c_turn, c_steps, cl)
         Clyde.update(wall_list, False)
 
-        # See if the Pacman block has collided with anything.
+        # Проверка на столкновение Пакмана с желтыми шариками
         blocks_hit_list = pygame.sprite.spritecollide(Pacman, block_list, True)
 
-        # Check the list of collisions.
+        # Проверка списка столкновений
         if len(blocks_hit_list) > 0:
             score += len(blocks_hit_list)
 
@@ -238,9 +238,9 @@ def startGame():
             Blinky.time = pygame.time.get_ticks()
             Blinky.update1()
 
-        # ALL GAME LOGIC SHOULD GO ABOVE THIS COMMENT
-
-        # ALL CODE TO DRAW SHOULD GO BELOW THIS COMMENT
+        ##################
+        # ОТРИСОВКА ИГРЫ #
+        ##################
         screen.fill(black)
 
         wall_list.draw(screen)
@@ -263,17 +263,20 @@ def startGame():
         if monsta_hit_list:
             doNext("Игра окончена", 235, all_sprites_list, block_list, monsta_list, pacman_collide, wall_list, gate)
 
-        # ALL CODE TO
-        # DRAW SHOULD GO ABOVE THIS COMMENT
 
         pygame.display.flip()
 
         clock.tick(10)
 
+
+
+####################################
+#### Отрисовка диалогового окна ####
+####################################
 def doNext(message, left, all_sprites_list, block_list, monsta_list, pacman_collide, wall_list, gate):
     while True:
 
-        # ALL EVENT PROCESSING SHOULD GO BELOW THIS COMMENT
+        # Выходим из игры или начинаем с начала?
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -289,13 +292,12 @@ def doNext(message, left, all_sprites_list, block_list, monsta_list, pacman_coll
                     del gate
                     startGame()
 
-        # Grey background
-        w = pygame.Surface((400, 200))  # the size of your rect
-        #w.set_alpha(10)  # alpha level
-        w.fill((250, 245, 115))  # this fills the entire surface
-        screen.blit(w, (100, 200))  # (0,0) are the top-left coordinates
+        #Задняя часть диалогового окна
+        w = pygame.Surface((400, 200))
+        w.fill((250, 245, 115))
+        screen.blit(w, (100, 200))
 
-        # Won or lost
+        # Выиграл или проиграл
         text1 = font.render(message, True, ellow)
         screen.blit(text1, [left, 233])
 
