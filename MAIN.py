@@ -28,6 +28,8 @@ pygame.init()
 screen = pygame.display.set_mode([606, 666])
 
 
+
+
 # Название экрана
 pygame.display.set_caption('Pacman')
 
