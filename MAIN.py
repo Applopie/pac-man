@@ -27,8 +27,6 @@ pygame.init()
 # Игровой экран
 screen = pygame.display.set_mode([606, 666])
 
-# This is a list of 'sprites.' Each block in the program is
-# added to this list. The list is managed by a class called 'RenderPlain.'
 
 
 # Название экрана
