@@ -5,18 +5,6 @@
 
 import random
 
-
-black = (0, 0, 0)
-white = (255, 255, 255)
-blue = (0, 0, 255)
-green = (0, 255, 0)
-red = (255, 0, 0)
-purple = (255, 0, 255)
-yellow = (255, 255, 0)
-ellow = (227, 142, 14)
-
-
-
 #Вызов других файлов игры
 from WORLD import *
 from PLAYER import *
@@ -26,9 +14,6 @@ pygame.init()
 
 # Игровой экран
 screen = pygame.display.set_mode([606, 666])
-
-
-
 
 # Название экрана
 pygame.display.set_caption('Pacman')
@@ -52,8 +37,6 @@ b_h = (3 * 60) + 19  # Binky height
 i_w = 303 - 16 - 32  # Inky width
 c_w = 303 + (32 - 16)  # Clyde width
 
-
-
 ##############
 # СТАРТ ИГРЫ #
 ##############
@@ -75,7 +58,6 @@ def startGame():
     flag = 0
     fg = 0
     bam = 0
-    bum = 0
 
     #Контроль за приведениями
     p_turn = 0
@@ -89,8 +71,6 @@ def startGame():
 
     c_turn = 0
     c_steps = 0
-
-
 
     # Создание приведений и Пакмана как объектов
     Pacman = Player(w, p_h, "drawings/pacmanmain.png")
@@ -272,9 +252,6 @@ def startGame():
 
                 monsta_list.add(Inky)
                 all_sprites_list.add(Inky)
-
-                bum, bam = 2, 2
-
 
         ##################
         # ОТРИСОВКА ИГРЫ #
